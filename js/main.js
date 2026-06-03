@@ -35,6 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
         handleScroll(); // Run once at load
     }
 
+    // --- Hero Parallax Background ---
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
+        const updateHeroParallax = () => {
+            const scrollY = window.scrollY * 0.18;
+            heroSection.style.backgroundPosition = `center calc(50% + ${scrollY}px)`;
+        };
+
+        window.addEventListener('scroll', updateHeroParallax);
+        updateHeroParallax();
+    }
+
     // --- 2. Mobile Menu Toggle ---
     const mobileToggle = document.getElementById('mobile-toggle');
     const navMenu = document.getElementById('nav-menu');
