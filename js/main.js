@@ -4,20 +4,36 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. Dynamic Header Scroll Effect ---
+    // --- 1. Dynamic Header Scroll Effect & Scroll Progress Bar ---
     const header = document.querySelector('.site-header');
     const scrollThreshold = 50;
 
-    const handleScroll = () => {
-        if (window.scrollY > scrollThreshold) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    };
+    if (header) {
+        // Dynamically create and inject the scroll progress bar
+        const progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress-bar';
+        header.appendChild(progressBar);
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Run once at load
+        const handleScroll = () => {
+            if (window.scrollY > scrollThreshold) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Calculate reading/scroll progress percentage
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (windowHeight > 0) {
+                const scrolledPercent = (window.scrollY / windowHeight) * 100;
+                progressBar.style.width = scrolledPercent + '%';
+            } else {
+                progressBar.style.width = '0%';
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Run once at load
+    }
 
     // --- 2. Mobile Menu Toggle ---
     const mobileToggle = document.getElementById('mobile-toggle');
@@ -239,6 +255,33 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('contact-name').value;
             alert(`Merci ${name} ! Votre message a bien été transmis à MALAYETECH SARL. Nous vous répondrons dans les plus brefs délais.`);
             contactForm.reset();
+        });
+    }
+
+    // --- 9. Scroll Reveal Animations (Intersection Observer) ---
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    if ('IntersectionObserver' in window && revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    observer.unobserve(entry.target); // Unobserve once animated
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+        
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+    } else {
+        // Fallback
+        revealElements.forEach(element => {
+            element.classList.add('reveal-visible');
         });
     }
 });
