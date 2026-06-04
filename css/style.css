@@ -78,7 +78,6 @@ body {
     color: var(--text-secondary);
     line-height: 1.6;
     overflow-x: hidden;
-    padding-top: var(--header-height);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -233,7 +232,7 @@ ul {
 
 /* Header & Navigation */
 header.site-header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
@@ -496,7 +495,7 @@ section {
     background-repeat: no-repeat;
     background-attachment: scroll;
     color: var(--text-light);
-    padding: calc(var(--header-height) + 20px) 0 60px;
+    padding: 20px 0 60px;
     position: relative;
     overflow: hidden;
 }
