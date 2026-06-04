@@ -78,6 +78,7 @@ body {
     color: var(--text-secondary);
     line-height: 1.6;
     overflow-x: hidden;
+    padding-top: var(--header-height);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -452,6 +453,7 @@ header.site-header.scrolled .logo img,
     height: 48px;
     cursor: pointer;
     transition: var(--transition);
+    z-index: 1101;
 }
 
 .mobile-toggle:hover {
@@ -2116,8 +2118,10 @@ footer.site-footer {
 }
 
 @media (max-width: 768px) {
+    :root { --header-height: 70px; }
+
     header.site-header {
-        height: 70px;
+        height: var(--header-height);
     }
 
     .mobile-toggle {
@@ -2126,11 +2130,11 @@ footer.site-footer {
 
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: var(--header-height);
         left: -100%;
         right: 0;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - var(--header-height));
         background: rgba(17, 22, 27, 0.98);
         flex-direction: column;
         align-items: center;
@@ -2141,6 +2145,7 @@ footer.site-footer {
         border-top: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
         z-index: 999;
+        overflow-y: auto;
     }
 
     .nav-menu.active {
