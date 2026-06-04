@@ -55,11 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             navMenu.classList.toggle('active');
-            
+            const isActive = navMenu.classList.contains('active');
+            document.body.classList.toggle('nav-open', isActive);
+
             // Toggle menu icon between bars and times (close)
             const icon = mobileToggle.querySelector('i');
             if (icon) {
-                if (navMenu.classList.contains('active')) {
+                if (isActive) {
                     icon.className = 'fas fa-times';
                 } else {
                     icon.className = 'fas fa-bars';
@@ -71,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('click', (e) => {
             if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
+                document.body.classList.remove('nav-open');
                 const icon = mobileToggle.querySelector('i');
                 if (icon) icon.className = 'fas fa-bars';
             }
@@ -80,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
+                document.body.classList.remove('nav-open');
                 const icon = mobileToggle.querySelector('i');
                 if (icon) icon.className = 'fas fa-bars';
             });
